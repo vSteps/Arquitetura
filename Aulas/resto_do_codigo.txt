@@ -1,0 +1,365 @@
+
+	# Funções de apagar - Movimentos
+apagaQuadrado:
+	jal  apaga
+	bgt  $12, 0, apagaQuadrado
+	addi $22, $22, 1	
+	j desenharFimQuadrado
+		
+_segundoApagaPtL:
+	addi $9, $9, 4000
+	
+apagaL:
+	jal  apaga
+	beq  $12, 16, _segundoApagaPtL
+	bgt  $12, 0, apagaL
+	addi $22, $22, 1
+	j desenharFimL
+
+apagaBarra:
+	jal  apaga
+	bgt  $12, 0, apagaBarra
+	addi $22, $22, 1
+	j desenharFimBarra
+	
+_segundoApagaPtT:
+	addi $9, $9, 4032
+	j apagaT
+	
+_terceiroApagaPtT:
+	addi $9, $9, 32
+	
+apagaT:
+	jal  apaga
+	beq  $12, 16, _segundoApagaPtT
+	beq  $12, 8, _terceiroApagaPtT
+	bgt  $12, 0, apagaT
+	addi $22, $22, 1
+	j desenharFimT
+	
+# Funções de Desenhar - Movimento
+desenharFimQuadrado:
+	addi   $12, $0 16
+	addi $9, $9, 8128
+	j desenharFim
+	
+desenharFimL:
+	addi   $12, $0 24
+	addi $9, $9, 4032
+	j desenharFim
+
+desenharFimBarra:
+	addi   $12, $0 32
+	addi $9, $9, 3968
+	j desenharFim
+
+desenharFimT:
+	addi   $12, $0 24
+	addi $9, $9, 4000
+	
+	
+#################################
+#   Configurações do Teclado	#
+#################################
+desenharFim:
+	jal  desenha
+	bgt  $12, 0, desenharFim
+	jal  checaLimiteNoFim
+	lw   $24, 0($8)
+	beq  $24, 0, delay
+	lw   $24, 4($8)
+	beq  $24, 97, rotParaMoveEsquerda
+	beq  $24, 100, rotParaMoveDireita
+	beq  $24, 115, rotAcelera
+	beq  $24, 119, rotVelocidadeMaxima
+	j delay
+#################################
+#   Configurações do Teclado	#
+#################################
+# Move e Mentos - Para a direita
+rotParaMoveDireita:
+	jal  checaLimiteNaDireita	# Pula pro rotulo de checagem
+	addi   $12, $0 16
+	beq  $16, 0, MoveQuadradoTDireita
+	beq  $16, 1, MoveLDireita
+	beq  $16, 2, MoveBarraDireita
+	beq  $16, 3, MoveQuadradoTDireita
+	
+MoveQuadradoTDireita:
+	addi $9, $9, -7744
+	addi   $19, $0 16
+	j apagaDireita
+	
+MoveLDireita:
+	addi $9, $9, -7712
+	addi   $19, $0 16
+	j apagaDireita
+	
+MoveBarraDireita:
+	addi $9, $9, -3712
+	addi   $19, $0 8
+	j apagaDireita
+	
+novoRotMoveDireita:
+	beq  $16, 0, novoRotParaQuadrado
+	beq  $16, 1, novoRotParaL
+	beq  $16, 2, novoRotParaBarra
+	beq  $16, 3, novoRotParaT
+	
+novoRotParaQuadrado:
+	addi   $12, $0 16
+	addi $9, $9, -96
+	j apagaDireita
+	
+novoRotParaL_segundoPt:
+	addi $9, $9, -128
+	j apagaDireita
+	
+novoRotParaL:
+	addi   $12, $0 16
+	blt  $19, 9, novoRotParaL_segundoPt
+	addi $9, $9, -64
+	j apagaDireita
+	
+novoRotParaBarra:
+	addi   $12, $0 16
+	addi $9, $9, -160
+	j apagaDireita	
+	
+novoRotParaT_PrimeiroPt:
+	addi $9, $9, -96
+	j apagaDireita
+				
+novoRotParaT_segundoPt:
+	addi $9, $9, -128
+	j apagaDireita	
+	
+novoRotParaT:
+	addi   $12, $0 16
+	beq  $19, 8, novoRotParaT_PrimeiroPt
+	blt  $19, 8, novoRotParaT_segundoPt
+	addi $9, $9, -64
+	j apagaDireita
+	
+apagaDireita:
+	jal apaga
+	bgt  $12, 8, apagaDireita  	
+	beq  $16, 0, ajeitarOffsetQuadradoDireita
+	beq  $16, 1, ajeitarOffsetLDireita
+	beq  $16, 2, ajeitarOffsetIDireita
+	beq  $16, 3, ajeitarOffsetTDireita
+
+ajeitarOffsetQuadradoDireita:	
+	addi $9, $9, 32
+	j desenhaDireita
+	
+ajeitarOffsetLDireita_segundoPt:
+	addi $9, $9, 64
+	j desenhaDireita
+	
+ajeitarOffsetLDireita:
+	blt  $19, 9, ajeitarOffsetLDireita_segundoPt
+	j desenhaDireita
+	
+ajeitarOffsetIDireita:
+	addi $9, $9, 96
+	j desenhaDireita
+		
+ajeitarOffsetTDireita_segundoPt:
+	addi $9, $9, 64
+	j desenhaDireita
+	
+ajeitarOffsetTDireita:	
+	blt  $19, 9, ajeitarOffsetTDireita_segundoPt
+	
+desenhaDireita:
+	jal desenha
+	bgt  $12, 0, desenhaDireita
+	addi $9, $9, 512
+	addi $19, $19, -1
+	bgt  $19, 0, novoRotMoveDireita
+	addi $9, $9, -512
+	j delay
+
+# Move e Mentos - Para a esquerda
+rotParaMoveEsquerda:
+	jal  checaLimiteNaEsquerda	# Pula pro rotulo de checagem
+	addi   $12, $0 16
+	beq  $16, 0, MoveQuadradoLEsquerda
+	beq  $16, 1, MoveQuadradoLEsquerda
+	beq  $16, 2, MoveBarraEsquerda
+	beq  $16, 3, MoveTEsquerda
+	
+MoveQuadradoLEsquerda:
+	addi $9, $9, -7712
+	addi   $19, $0 16
+	j apagaEsquerda
+	
+MoveBarraEsquerda:
+	addi $9, $9, -3616
+	addi   $19, $0 8	
+	j apagaEsquerda
+	
+MoveTEsquerda:
+	addi $9, $9, -7744
+	addi   $19, $0 16
+	j apagaEsquerda
+
+novoRotMoveQuadradoEsquerda:
+	addi   $12, $0 16
+	addi $9, $9, 32
+	j apagaEsquerda
+	
+novoRotMoveLEsquerda_segundoPt:
+	addi $9, $9, 64	
+	j apagaEsquerda
+	
+novoRotMoveLEsquerda:
+	addi   $12, $0 16
+	blt  $19, 8, novoRotMoveLEsquerda_segundoPt
+	j apagaEsquerda
+	
+novoRotMoveBarraEsquerda:
+	addi   $12, $0 16
+	addi $9, $9, 96
+	j apagaEsquerda
+	
+novoRotMoveTEsquerda_PrimeiroPt:
+	addi $9, $9, 32
+	j apagaEsquerda
+
+novoRotMoveTEsquerda_segundoPt:
+	addi $9, $9, 64
+	j apagaEsquerda
+
+novoRotMoveTEsquerda:
+	addi   $12, $0 16
+	beq  $19, 8, novoRotMoveTEsquerda_PrimeiroPt
+	blt  $19, 8, novoRotMoveTEsquerda_segundoPt
+	
+apagaEsquerda:
+	jal apaga
+	bgt  $12, 8, apagaEsquerda
+	beq  $16, 0, ajeitarOffsetQuadradoEsquerda
+	beq  $16, 1, ajeitarOffsetLTEsquerda
+	beq  $16, 2, ajeitarOffsetBarraEsquerda
+	beq  $16, 3, ajeitarOffsetLTEsquerda
+	
+# Move e mentos:  'Quadrado' esquerda
+ajeitarOffsetQuadradoEsquerda:
+	addi $9, $9, -96
+
+desenhaQuadradoEsquerda:
+	jal desenha
+	bgt  $12, 0, desenhaQuadradoEsquerda
+	addi $9, $9, 512
+	addi $19, $19, -1
+	bgt  $19, 0, novoRotMoveQuadradoEsquerda
+	addi $9, $9, -480
+	j delay
+	
+# Setar L / Tesão Parâmetros
+ajeitarOffsetLTEsquerda_PrimeiroPt:
+	addi $9, $9, -64
+	beq  $16, 1, desenhaLEsquerda
+	beq  $16, 3, desenhaTEsquerda
+	
+ajeitarOffsetLTEsquerda:
+	bgt  $19, 8, ajeitarOffsetLTEsquerda_PrimeiroPt
+	addi $9, $9, -128
+	beq  $16, 1, desenhaLEsquerda
+	beq  $16, 3, desenhaTEsquerda
+	
+# Move e mentos:  L para a esquerda
+desenhaLEsquerda:
+	jal desenha
+	bgt  $12, 0, desenhaLEsquerda
+	addi $9, $9, 512
+	addi $19, $19, -1
+	bgt  $19, 0, novoRotMoveLEsquerda
+	addi $9, $9, -448
+	j delay
+
+# Move e mentos:  Barra para a esquerda
+ajeitarOffsetBarraEsquerda:
+	addi $9, $9, -160
+
+desenhaBarraEsquerda:
+	jal desenha
+	bgt  $12, 0, desenhaBarraEsquerda
+	addi $9, $9, 512
+	addi $19, $19, -1
+	bgt  $19, 0, novoRotMoveBarraEsquerda
+	addi $9, $9, -416
+	j delay
+
+# Move e mentos:  Tesão para a esquerda
+desenhaTEsquerda:
+	jal desenha
+	bgt  $12, 0, desenhaTEsquerda
+	addi $9, $9, 512
+	addi $19, $19, -1
+	bgt  $19, 0, novoRotMoveTEsquerda
+	addi $9, $9, -448
+	j delay
+
+# Mostrar potuação no terminal
+mostrarPontuação:
+	addi   $10, $0 10
+	addi   $4, $0 10
+	
+pularLinhas:
+	addi   $2, $0 11
+	syscall
+	addi $10, $10, -1
+	bne  $10, 0, pularLinhas
+	addi $4, $0 'S'
+	addi   $2, $0 11
+	syscall
+	addi $4, $0 'C'
+	addi   $2, $0 11
+	syscall
+	add $4, $0 'O'
+	addi  $2, $0 11
+	syscall
+	addi $4, $0 'R'
+	addi   $2, $0 11
+	syscall
+	addi $4, $0 'E'
+	addi   $2, $0 11
+	syscall
+	addi $4, $0 ' '
+	addi   $2, $0 11
+	syscall
+	add  $4, $0, $13
+	addi   $2, $0 1
+	syscall
+
+	jr   $31
+
+vaiBlocoHorzLinha:
+	jal desenha
+	bgt  $12, 0, vaiBlocoHorzLinha
+	addi $13, $13, -1
+	
+vaiBlocoAlturaTeste:
+	ble  $13, 36, setConDesenhaPalavras
+continue1:
+	addi   $12, $0 82
+	addi $9, $9, 184
+	beq  $13, 41, vaiBlocoHorzLinha
+	beq  $13, 2, vaiBlocoHorzLinha
+	beq  $13, 1, vaiBlocoHorzLinha
+	beq  $13, 0, fim
+		
+	jal desenha
+	jal desenha
+	
+
+setConDesenhaPalavras:
+	sgt  $20, $13, 24
+	beq  $20, 1, continue1
+	sle  $20, $13, 20
+	beq  $20, 0, continue1
+	sgt  $20, $13, 8
+	j continue1

@@ -1,0 +1,418 @@
+desenhaGameOverBloco:
+	jal apaga
+	ble  $12, 61, checaSePodeDesenharPalavras
+continue2:
+	bgt  $12, 2, desenhaGameOverBloco
+	jal desenha
+	jal desenha
+	addi $13, $13, -1
+	bgt  $13, 0, vaiBlocoAlturaTeste
+
+checaSePodeDesenharPalavras:
+	bne  $20, 1, continue2
+	bne  $21, 0, ondeParaDesenhar
+	addi $22, $22, 1
+	addi   $21, $0 2
+
+ondeParaDesenhar:
+	beq  $22, 0, GAME_1_1
+	beq  $22, 1, GAME_2_1
+	beq  $22, 2, GAME_3_1
+	beq  $22, 3, GAME_4_1
+	beq  $22, 4, GAME_5_1
+	beq  $22, 5, GAME_6_1
+	
+	beq  $22, 6, OVER_1_1
+	beq  $22, 7, OVER_2_1
+	beq  $22, 8, OVER_3_1
+	beq  $22, 9, OVER_4_1
+	beq  $22, 10, OVER_5_1
+	beq  $22, 11, OVER_6_1
+	
+####   GAME 1   ####
+GAME_1_1:
+	jal apaga
+	bgt  $12, 59, GAME_1_1
+	beq  $12, 59, GAME_1_2
+	bgt  $12, 49, GAME_1_1
+	beq  $12, 49, GAME_1_2
+	bgt  $12, 41, GAME_1_1
+	beq  $12, 41, GAME_1_2
+	bgt  $12, 33, GAME_1_1
+	beq  $12, 33, GAME_1_2
+	bgt  $12, 29, GAME_1_1
+			
+GAME_1_2:
+	jal desenha
+	bgt  $12, 53, GAME_1_2
+	beq  $12, 53, GAME_1_1
+	bgt  $12, 45, GAME_1_2
+	beq  $12, 45, GAME_1_1
+	bgt  $12, 39, GAME_1_2
+	beq  $12, 39, GAME_1_1
+	bgt  $12, 31, GAME_1_2
+	beq  $12, 31, GAME_1_1
+	bgt  $12, 21, GAME_1_2
+	
+	j palavraDesenhaControle
+
+####   GAME 2   ####
+GAME_2_1:
+	jal desenha
+	bgt  $12, 59, GAME_2_1
+	beq  $12, 59, GAME_2_2
+	bgt  $12, 49, GAME_2_1
+	beq  $12, 49, GAME_2_2
+	bgt  $12, 43, GAME_2_1
+	beq  $12, 43, GAME_2_2
+	bgt  $12, 37, GAME_2_1
+	beq  $12, 37, GAME_2_2
+	bgt  $12, 31, GAME_2_1
+	beq  $12, 31, GAME_2_2
+	bgt  $12, 27, GAME_2_1
+	beq  $12, 27, GAME_2_2
+			
+GAME_2_2:
+	jal apaga
+	bgt  $12, 51, GAME_2_2
+	beq  $12, 51, GAME_2_1
+	bgt  $12, 45, GAME_2_2
+	beq  $12, 45, GAME_2_1
+	bgt  $12, 41, GAME_2_2
+	beq  $12, 41, GAME_2_1
+	bgt  $12, 35, GAME_2_2
+	beq  $12, 35, GAME_2_1
+	bgt  $12, 29, GAME_2_2
+	beq  $12, 29, GAME_2_1
+	bgt  $12, 21, GAME_2_2
+	
+	j palavraDesenhaControle
+
+####   GAME 3   ####	
+GAME_3_1:
+	jal desenha
+	bgt  $12, 59, GAME_3_1
+	beq  $12, 59, GAME_3_2
+	bgt  $12, 53, GAME_3_1
+	beq  $12, 53, GAME_3_2
+	bgt  $12, 49, GAME_3_1
+	beq  $12, 49, GAME_3_2
+	bgt  $12, 43, GAME_3_1
+	beq  $12, 43, GAME_3_2
+	bgt  $12, 39, GAME_3_1
+	beq  $12, 39, GAME_3_2
+	bgt  $12, 35, GAME_3_1
+	beq  $12, 35, GAME_3_2
+	bgt  $12, 31, GAME_3_1
+	beq  $12, 31, GAME_3_2
+	bgt  $12, 21, GAME_3_1
+	
+	j palavraDesenhaControle
+	
+GAME_3_2:
+	jal apaga
+	bgt  $12, 57, GAME_3_2
+	beq  $12, 57, GAME_3_1
+	bgt  $12, 51, GAME_3_2
+	beq  $12, 51, GAME_3_1
+	bgt  $12, 45, GAME_3_2
+	beq  $12, 45, GAME_3_1
+	bgt  $12, 41, GAME_3_2
+	beq  $12, 41, GAME_3_1
+	bgt  $12, 37, GAME_3_2
+	beq  $12, 37, GAME_3_1
+	bgt  $12, 33, GAME_3_2
+	beq  $12, 33, GAME_3_1
+	bgt  $12, 29, GAME_3_2
+	beq  $12, 29, GAME_3_1
+
+####   GAME 4   ####
+GAME_4_1:
+	jal desenha
+	bgt  $12, 59, GAME_4_1
+	beq  $12, 59, GAME_4_2
+	bgt  $12, 53, GAME_4_1
+	beq  $12, 53, GAME_4_2
+	bgt  $12, 43, GAME_4_1
+	beq  $12, 43, GAME_4_2
+	bgt  $12, 39, GAME_4_1
+	beq  $12, 39, GAME_4_2
+	bgt  $12, 31, GAME_4_1
+	beq  $12, 31, GAME_4_2
+	bgt  $12, 27, GAME_4_1
+			
+GAME_4_2:
+	jal apaga
+	bgt  $12, 55, GAME_4_2
+	beq  $12, 55, GAME_4_1
+	bgt  $12, 51, GAME_4_2
+	beq  $12, 51, GAME_4_1
+	bgt  $12, 41, GAME_4_2
+	beq  $12, 41, GAME_4_1
+	bgt  $12, 33, GAME_4_2
+	beq  $12, 33, GAME_4_1
+	bgt  $12, 29, GAME_4_2
+	beq  $12, 29, GAME_4_1
+	bgt  $12, 21, GAME_4_2
+	
+	j palavraDesenhaControle
+	
+####   GAME 5   ####
+GAME_5_1:
+	jal desenha
+	bgt  $12, 59, GAME_5_1
+	beq  $12, 59, GAME_5_2
+	bgt  $12, 53, GAME_5_1
+	beq  $12, 53, GAME_5_2
+	bgt  $12, 49, GAME_5_1
+	beq  $12, 49, GAME_5_2
+	bgt  $12, 43, GAME_5_1
+	beq  $12, 43, GAME_5_2
+	bgt  $12, 39, GAME_5_1
+	beq  $12, 39, GAME_5_2
+	bgt  $12, 31, GAME_5_1
+	beq  $12, 31, GAME_5_2
+	bgt  $12, 27, GAME_5_1
+			
+GAME_5_2:
+	jal apaga
+	bgt  $12, 55, GAME_5_2
+	beq  $12, 55, GAME_5_1
+	bgt  $12, 51, GAME_5_2
+	beq  $12, 51, GAME_5_1
+	bgt  $12, 45, GAME_5_2
+	beq  $12, 45, GAME_5_1
+	bgt  $12, 41, GAME_5_2
+	beq  $12, 41, GAME_5_1
+	bgt  $12, 33, GAME_5_2
+	beq  $12, 33, GAME_5_1
+	bgt  $12, 29, GAME_5_2
+	beq  $12, 29, GAME_5_1
+	bgt  $12, 21, GAME_5_2
+	
+	j palavraDesenhaControle
+
+####   GAME 6   ####
+GAME_6_1:
+	jal apaga
+	bgt  $12, 59, GAME_6_1
+	beq  $12, 59, GAME_6_2
+	bgt  $12, 51, GAME_6_1
+	beq  $12, 51, GAME_6_2
+	bgt  $12, 45, GAME_6_1
+	beq  $12, 45, GAME_6_2
+	bgt  $12, 41, GAME_6_1
+	beq  $12, 41, GAME_6_2
+	bgt  $12, 33, GAME_6_1
+	beq  $12, 33, GAME_6_2
+	bgt  $12, 29, GAME_6_1
+			
+GAME_6_2:
+	jal desenha
+	bgt  $12, 55, GAME_6_2
+	beq  $12, 55, GAME_6_1
+	bgt  $12, 49, GAME_6_2
+	beq  $12, 49, GAME_6_1
+	bgt  $12, 43, GAME_6_2
+	beq  $12, 43, GAME_6_1
+	bgt  $12, 39, GAME_6_2
+	beq  $12, 39, GAME_6_1
+	bgt  $12, 31, GAME_6_2
+	beq  $12, 31, GAME_6_1
+	bgt  $12, 21, GAME_6_2
+	
+	j palavraDesenhaControle
+	
+####   OVER 1   ####
+OVER_1_1:
+	jal apaga
+	bgt  $12, 59, OVER_1_1
+	beq  $12, 59, OVER_1_2
+	bgt  $12, 51, OVER_1_1
+	beq  $12, 51, OVER_1_2
+	bgt  $12, 43, OVER_1_1
+	beq  $12, 43, OVER_1_2
+	bgt  $12, 39, OVER_1_1
+	beq  $12, 39, OVER_1_2
+	bgt  $12, 29, OVER_1_1
+	beq  $12, 29, OVER_1_2
+	bgt  $12, 21, OVER_1_1
+	
+	j palavraDesenhaControle
+	
+OVER_1_2:
+	jal desenha
+	bgt  $12, 55, OVER_1_2
+	beq  $12, 55, OVER_1_1
+	bgt  $12, 49, OVER_1_2
+	beq  $12, 49, OVER_1_1
+	bgt  $12, 41, OVER_1_2
+	beq  $12, 41, OVER_1_1
+	bgt  $12, 31, OVER_1_2
+	beq  $12, 31, OVER_1_1
+	bgt  $12, 23, OVER_1_2
+	beq  $12, 23, OVER_1_1
+	
+####   OVER 2   ####
+OVER_2_1:
+	jal desenha
+	bgt  $12, 59, OVER_2_1
+	beq  $12, 59, OVER_2_2
+	bgt  $12, 53, OVER_2_1
+	beq  $12, 53, OVER_2_2
+	bgt  $12, 49, OVER_2_1
+	beq  $12, 49, OVER_2_2
+	bgt  $12, 41, OVER_2_1
+	beq  $12, 41, OVER_2_2
+	bgt  $12, 37, OVER_2_1
+	beq  $12, 37, OVER_2_2
+	bgt  $12, 27, OVER_2_1
+	beq  $12, 27, OVER_2_2
+	bgt  $12, 21, OVER_2_1
+	
+	j palavraDesenhaControle
+	
+OVER_2_2:
+	jal apaga
+	bgt  $12, 55, OVER_2_2
+	beq  $12, 55, OVER_2_1
+	bgt  $12, 51, OVER_2_2
+	beq  $12, 51, OVER_2_1
+	bgt  $12, 43, OVER_2_2
+	beq  $12, 43, OVER_2_1
+	bgt  $12, 39, OVER_2_2
+	beq  $12, 39, OVER_2_1
+	bgt  $12, 29, OVER_2_2
+	beq  $12, 29, OVER_2_1
+	bgt  $12, 23, OVER_2_2
+	beq  $12, 23, OVER_2_1
+	
+####   OVER 3   ####
+OVER_3_1:
+	jal desenha
+	bgt  $12, 59, OVER_3_1
+	beq  $12, 59, OVER_3_2
+	bgt  $12, 53, OVER_3_1
+	beq  $12, 53, OVER_3_2
+	bgt  $12, 49, OVER_3_1
+	beq  $12, 49, OVER_3_2
+	bgt  $12, 41, OVER_3_1
+	beq  $12, 41, OVER_3_2
+	bgt  $12, 31, OVER_3_1
+	beq  $12, 31, OVER_3_2
+	bgt  $12, 23, OVER_3_1
+	beq  $12, 23, OVER_3_2
+	
+OVER_3_2:
+	jal apaga
+	bgt  $12, 55, OVER_3_2
+	beq  $12, 55, OVER_3_1
+	bgt  $12, 51, OVER_3_2
+	beq  $12, 51, OVER_3_1
+	bgt  $12, 43, OVER_3_2
+	beq  $12, 43, OVER_3_1
+	bgt  $12, 39, OVER_3_2
+	beq  $12, 39, OVER_3_1
+	bgt  $12, 29, OVER_3_2
+	beq  $12, 29, OVER_3_1
+	bgt  $12, 21, OVER_3_2
+	
+	j palavraDesenhaControle
+	
+####   OVER 4   ####
+OVER_4_1:
+	jal desenha
+	bgt  $12, 59, OVER_4_1
+	beq  $12, 59, OVER_4_2
+	bgt  $12, 53, OVER_4_1
+	beq  $12, 53, OVER_4_2
+	bgt  $12, 49, OVER_4_1
+	beq  $12, 49, OVER_4_2
+	bgt  $12, 41, OVER_4_1
+	beq  $12, 41, OVER_4_2
+	bgt  $12, 37, OVER_4_1
+	beq  $12, 37, OVER_4_2
+	bgt  $12, 27, OVER_4_1
+	beq  $12, 27, OVER_4_2
+	bgt  $12, 21, OVER_4_1
+
+	j palavraDesenhaControle	
+	
+OVER_4_2:
+	jal apaga
+	bgt  $12, 55, OVER_4_2
+	beq  $12, 55, OVER_4_1
+	bgt  $12, 51, OVER_4_2
+	beq  $12, 51, OVER_4_1
+	bgt  $12, 43, OVER_4_2
+	beq  $12, 43, OVER_4_1
+	bgt  $12, 39, OVER_4_2
+	beq  $12, 39, OVER_4_1
+	bgt  $12, 29, OVER_4_2
+	beq  $12, 29, OVER_4_1
+	bgt  $12, 23, OVER_4_2
+	beq  $12, 23, OVER_4_1
+	
+####   OVER 5   ####
+OVER_5_1:
+	jal desenha
+	bgt  $12, 59, OVER_5_1
+	beq  $12, 59, OVER_5_2
+	bgt  $12, 53, OVER_5_1
+	beq  $12, 53, OVER_5_2
+	bgt  $12, 47, OVER_5_1
+	beq  $12, 47, OVER_5_2
+	bgt  $12, 43, OVER_5_1
+	beq  $12, 43, OVER_5_2
+	bgt  $12, 37, OVER_5_1
+	beq  $12, 37, OVER_5_2
+	bgt  $12, 27, OVER_5_1
+	beq  $12, 27, OVER_5_2
+	bgt  $12, 21, OVER_5_1
+
+	j palavraDesenhaControle	
+	
+OVER_5_2:
+	jal apaga
+	bgt  $12, 55, OVER_5_2
+	beq  $12, 55, OVER_5_1
+	bgt  $12, 49, OVER_5_2
+	beq  $12, 49, OVER_5_1
+	bgt  $12, 45, OVER_5_2
+	beq  $12, 45, OVER_5_1
+	bgt  $12, 39, OVER_5_2
+	beq  $12, 39, OVER_5_1
+	bgt  $12, 29, OVER_5_2
+	beq  $12, 29, OVER_5_1
+	bgt  $12, 23, OVER_5_2
+	beq  $12, 23, OVER_5_1
+	
+####   OVER 6   ####
+OVER_6_1:
+	jal apaga
+	bgt  $12, 59, OVER_6_1
+	beq  $12, 59, OVER_6_2
+	bgt  $12, 47, OVER_6_1
+	beq  $12, 47, OVER_6_2
+	bgt  $12, 39, OVER_6_1
+	beq  $12, 39, OVER_6_2
+	bgt  $12, 29, OVER_6_1
+	beq  $12, 29, OVER_6_2
+	bgt  $12, 23, OVER_6_1
+	
+OVER_6_2:
+	jal desenha
+	bgt  $12, 55, OVER_6_2
+	beq  $12, 55, OVER_6_1
+	bgt  $12, 45, OVER_6_2
+	beq  $12, 45, OVER_6_1
+	bgt  $12, 31, OVER_6_2
+	beq  $12, 31, OVER_6_1
+	bgt  $12, 27, OVER_6_2
+	beq  $12, 27, OVER_6_1
+	bgt  $12, 21, OVER_6_2
+	
+palavraDesenhaControle:
+	addi $21, $21, -1
+	addi   $20, $0 0
+	j desenhaGameOverBloco
